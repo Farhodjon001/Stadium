@@ -2,8 +2,10 @@ from rest_framework.serializers import ModelSerializer
 from .models import *
 from rest_framework import serializers
 
+
 class CustomUserSerializer(ModelSerializer):
     password = serializers.CharField(write_only=True)
+
     class Meta:
         model = CustomUser
         fields = ('username', 'password', 'roles')
@@ -16,3 +18,9 @@ class CustomUserSerializer(ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+
+class UserSerializers(ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'password', 'roles')
