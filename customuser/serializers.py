@@ -18,9 +18,3 @@ class CustomUserSerializer(ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
-
-
-class UserSerializers(ModelSerializer):
-    class Meta:
-        model = CustomUser
-        fields = ('username', 'password', 'roles')
