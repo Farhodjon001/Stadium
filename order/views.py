@@ -25,3 +25,6 @@ class DetailByStadiumView(APIView):
         serializer = OrderSerializers(detail_view, many=True)
         return Response(serializer.data)
 
+class CreateOrder(generics.CreateAPIView):
+    queryset = Order.objects.all()
+    # serializer_class =
