@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Stadium
 from .serializers import StadiumSerializers
 from rest_framework import generics
-from config.permissions import ManagerPermission,AdminPermission
+from config.permissions import ManagerPermission,AdminPermission,UserPermission
 
 # Create your views here.
 
@@ -14,28 +14,31 @@ class CreateStadiumAPIView(generics.CreateAPIView):
 class ListManagerStadiumAPIView(generics.ListAPIView):
     queryset = Stadium.objects.all()
     serializer_class = StadiumSerializers
-    permission_classes = (ManagerPermission,)
+    permission_classes = (ManagerPermission,AdminPermission)
 
     def get_queryset(self):
         user = self.request.user
         manager= CustomUser.objects.get(id=user.id)
         return Stadium.objects.filter(manager=manager)
 
-class ListManagerOrders(generics.ListAPIView):
+class ListManagerOrdersApiView(generics.ListAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializers
-    permission_classes = (ManagerPermission,)
+    permission_classes = (ManagerPermission,AdminPermission)
 
     def get_queryset(self):
         user=self.request.user
         stadion=Stadium.objects.get(manager=user.id)
         return Order.objects.filter(name=stadion.id)
+class DetailStadiumApiView(generics.RetrieveAPIView):
+    queryset = Stadium.objects.all()
+    serializer_class = StadiumSerializers
+    permission_classes = (UserPermission,ManagerPermission,AdminPermission)
 
-
-class ListEptyStadiumByManager(APIView):
-    def get(self):
-        stadium=Stadium.objects.get(manager=self.request.user.id)
-        orders=Order.objects.filter(name=stadium.id)
+# class ListEptyStadiumByManager(APIView):
+#     def get(self):
+#         stadium=Stadium.objects.get(manager=self.request.user.id)
+#         orders=Order.objects.filter(name=stadium.id)
 
 
 

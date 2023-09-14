@@ -15,7 +15,12 @@ class CreateOrderSerializers(serializers.ModelSerializer):
         fields = ('name', 'begin_time', 'end_time')
 
     def create(self, validated_data):
-        print(self.context['request'].user.id)
+        begin_time=validated_data["begin_time"]
+        end_time=validated_data['end_time']
+
         validated_data["user"] = CustomUser.objects.get(id=self.context['request'].user.id)
-        validated_data["status"] = 1
+        if begin_time>=datetime.now() and end_time>datetime.now():
+            validated_data["status"] = 1
+        else:
+            validated_data["status"]=0
         return super(CreateOrderSerializers, self).create(validated_data)
