@@ -9,5 +9,5 @@ from config.permissions import ManagerPermission,AdminPermission
 class CreateStadiumAPIView(generics.CreateAPIView):
     queryset = Stadium.objects.all()
     serializer_class = StadiumSerializers
-    permission_classes = (ManagerPermission,)
+    permission_classes = (ManagerPermission, AdminPermission)
 
