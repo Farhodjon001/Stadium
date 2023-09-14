@@ -8,4 +8,4 @@ class CustomUser(AbstractUser):
         (1, 'user'),
         (2, "manager")
     )
-    roles = models.PositiveSmallIntegerField(default=1, choices=CHOICES)
+    roles = models.PositiveSmallIntegerField(default=1,choices=CHOICES)
