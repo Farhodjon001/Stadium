@@ -42,6 +42,10 @@ INSTALLED_APPS = [
     'customuser',
     'rest_framework',
 
+    #apps
+    'order',
+    'Stadium',
+
 ]
 
 MIDDLEWARE = [
