@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     #apps
     'order',
     'Stadium',
+    'drf_yasg',
 
 ]
 
