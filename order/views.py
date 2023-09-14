@@ -3,6 +3,7 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+
 from .serializers import *
 from .models import *
 from Stadium.models import *
@@ -23,3 +24,4 @@ class DetailByStadiumView(APIView):
         detail_view = Order.objects.filter(name=detail.id)
         serializer = OrderSerializers(detail_view, many=True)
         return Response(serializer.data)
+
